@@ -1,0 +1,18 @@
+# jetbrains
+.idea
+
+# terraform
+.terraform
+terraform.tfstate
+terraform.tfstate.backup
+
+# python
+.venv
+__pycache__
+*.pyc
+
+# airflow
+/logs
+
+# environment variables
+.env
