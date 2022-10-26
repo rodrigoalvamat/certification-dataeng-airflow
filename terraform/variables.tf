@@ -17,18 +17,6 @@ variable "project" {
   default     = "udacity-airflow"
 }
 
-variable "bucket_names" {
-  description = "S3 bucket names"
-  type        = list(string)
-  default     = [
-    "landing",
-    "bronze",
-    "silver",
-    "gold",
-    "scripts"
-  ]
-}
-
 // Project and stage common tags
 locals {
   common_tags = {

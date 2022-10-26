@@ -1,4 +1,4 @@
-.PHONY : clean deploy destroy init
+.PHONY : all clean deploy destroy init
 
 all:
 	deploy
@@ -6,6 +6,8 @@ all:
 clean:
 	find ./dags -name '*.py[co]' -exec rm {} \;
 	find ./dags -name '__pycache__' -exec rm -rf ||: {}\;
+	find ./plugins -name '*.py[co]' -exec rm {} \;
+	find ./plugins -name '__pycache__' -exec rm -rf ||: {}\;
 
 deploy: clean
 	terraform -chdir='./terraform' apply -var-file='secret.tfvars'

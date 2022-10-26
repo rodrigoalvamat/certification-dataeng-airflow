@@ -3,7 +3,13 @@ output "redshift_endpoint" {
   value       = aws_redshift_cluster.redshift_cluster.endpoint
 }
 
-output "redshift_role_arn" {
-  description = "IAM redshift role arn"
-  value       = aws_iam_role.role_redshift.arn
+// Saves Redshift cluster config to redshift.cfg
+resource "local_file" "emr_cluster_dns" {
+  depends_on = [aws_redshift_cluster.redshift_cluster]
+  filename   = "../config/redshift.cfg"
+
+  content = <<EOT
+[REDSHIFT]
+DNS=${aws_redshift_cluster.redshift_cluster.endpoint}
+EOT
 }

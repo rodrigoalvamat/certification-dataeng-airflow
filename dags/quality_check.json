@@ -1,0 +1,287 @@
+[
+  {
+    "name": "songplays",
+    "columns": [
+      {
+        "name": "songplay_id",
+        "rules": [
+          {
+            "regexp": "[a-f[:digit:]]+"
+          }
+        ]
+      },
+      {
+        "name": "session_id",
+        "rules": [
+          {
+            "regexp": "[0-9]+"
+          }
+        ]
+      },
+      {
+        "name": "user_agent",
+        "rules": [
+          {
+            "regexp": "[[:word:][:digit:][:space:][:punct:]\\.\\-]+"
+          }
+        ]
+      },
+      {
+        "name": "level",
+        "rules": [
+          {
+            "regexp": "(free)|(paid)"
+          }
+        ]
+      },
+      {
+        "name": "location",
+        "rules": [
+          {
+            "regexp": "[[:word:][:digit:][:space:][:punct:]\\.\\-]+"
+          }
+        ]
+      },
+      {
+        "name": "start_time",
+        "rules": [
+          {
+            "timestamp": null
+          }
+        ]
+      },
+      {
+        "name": "user_id",
+        "rules": [
+          {
+            "regexp": "[[:digit:]]+"
+          }
+        ]
+      },
+      {
+        "name": "song_id",
+        "rules": [
+          {
+            "regexp": "[[:alpha:][:digit:]]+"
+          },
+          {
+            "nullable": null
+          }
+        ]
+      },
+      {
+        "name": "artist_id",
+        "rules": [
+          {
+            "regexp": "[[:alpha:][:digit:]]+"
+          },
+          {
+            "nullable": null
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "users",
+    "columns": [
+      {
+        "name": "user_id",
+        "rules": [
+          {
+            "regexp": "[[:digit:]]+"
+          }
+        ]
+      },
+      {
+        "name": "first_name",
+        "rules": [
+          {
+            "regexp": "[[:word:]]+"
+          }
+        ]
+      },
+      {
+        "name": "last_name",
+        "rules": [
+          {
+            "regexp": "[[:word:]]+"
+          }
+        ]
+      },
+      {
+        "name": "gender",
+        "rules": [
+          {
+            "regexp": "(F)|(M)"
+          }
+        ]
+      },
+      {
+        "name": "level",
+        "rules": [
+          {
+            "regexp": "(free)|(paid)"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "songs",
+    "columns": [
+      {
+        "name": "song_id",
+        "rules": [
+          {
+            "regexp": "[[:alpha:][:digit:]]+"
+          }
+        ]
+      },
+      {
+        "name": "title",
+        "rules": [
+          {
+            "regexp": ".+"
+          }
+        ]
+      },
+      {
+        "name": "year",
+        "rules": [
+          {
+            "regexp": "([[:digit:]]{4})|0"
+          }
+        ]
+      },
+      {
+        "name": "duration",
+        "rules": [
+          {
+            "regexp": "[[:digit:]]+\\.[[:digit:]]+"
+          }
+        ]
+      },
+      {
+        "name": "artist_id",
+        "rules": [
+          {
+            "regexp": "[[:alpha:][:digit:]]+"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "artists",
+    "columns": [
+      {
+        "name": "artist_id",
+        "rules": [
+          {
+            "regexp": "[[:alpha:][:digit:]]+"
+          }
+        ]
+      },
+      {
+        "name": "name",
+        "rules": [
+          {
+            "regexp": ".+"
+          }
+        ]
+      },
+      {
+        "name": "location",
+        "rules": [
+          {
+            "any": null
+          }
+        ]
+      },
+      {
+        "name": "latitude",
+        "rules": [
+          {
+            "regexp": "[-[:digit:]]+\\.[[:digit:]]+"
+          },
+          {
+            "nullable": null
+          }
+        ]
+      },
+      {
+        "name": "longitude",
+        "rules": [
+          {
+            "regexp": "[-[:digit:]]+\\.[[:digit:]]+"
+          },
+          {
+            "nullable": null
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "time",
+    "columns": [
+      {
+        "name": "start_time",
+        "rules": [
+          {
+            "timestamp": null
+          }
+        ]
+      },
+      {
+        "name": "hour",
+        "rules": [
+          {
+            "regexp": "[[:digit:]]{1,2}"
+          }
+        ]
+      },
+      {
+        "name": "day",
+        "rules": [
+          {
+            "regexp": "[[:digit:]]{1,2}"
+          }
+        ]
+      },
+      {
+        "name": "week",
+        "rules": [
+          {
+            "regexp": "[[:digit:]]{1,2}"
+          }
+        ]
+      },
+      {
+        "name": "month",
+        "rules": [
+          {
+            "regexp": "[[:digit:]]{1,2}"
+          }
+        ]
+      },
+      {
+        "name": "year",
+        "rules": [
+          {
+            "regexp": "[[:digit:]]{4}"
+          }
+        ]
+      },
+      {
+        "name": "weekday",
+        "rules": [
+          {
+            "regexp": "[[:digit:]]{1}"
+          }
+        ]
+      }
+    ]
+  }
+]

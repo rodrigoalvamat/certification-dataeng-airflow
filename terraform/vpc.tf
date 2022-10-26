@@ -1,7 +1,7 @@
 // Cluster VPC
 module "vpc" {
   source  = "terraform-aws-modules/vpc/aws"
-  version = "3.14.2"
+  version = "3.18.0"
 
   name = "${var.project}-${var.stage}-vpc"
   cidr = "10.0.0.0/16"

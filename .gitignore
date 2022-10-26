@@ -14,5 +14,5 @@ __pycache__
 # airflow
 /logs
 
-# environment variables
-.env
+# config
+redshift.cfg
