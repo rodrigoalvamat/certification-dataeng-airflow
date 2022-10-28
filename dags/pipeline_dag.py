@@ -1,14 +1,19 @@
+"""Defines the pipeline DAG, sets default args, initializes each
+custom operator and specify task dependencies"""
+
+# python libs
 import os
 from datetime import datetime, timedelta
-
+# airflow libs
 from airflow import DAG
 from airflow.operators.dummy import DummyOperator
 from airflow.utils.task_group import TaskGroup
-
+# plugins operators libs
 from operators.data_quality import DataQualityOperator
 from operators.load_dimension import LoadDimensionOperator
 from operators.load_fact import LoadFactOperator
 from operators.stage_redshift import StageToRedshiftOperator
+# plugins helpers libs
 from helpers.sql_queries import SqlQueries
 
 QUALITY_CHECK_JSON = os.path.abspath("./dags/quality_check.json")

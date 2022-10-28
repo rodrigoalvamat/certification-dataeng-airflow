@@ -1,53 +1,40 @@
-import json
+"""Defines the DataQualityOperator class to execute the
+RedshiftChecker with the rules specified by the JSON file.
+The check report is exported as a JSON string to a XCom.
+"""
 
+# airflow libs
 from airflow.models import BaseOperator
 from airflow.utils.decorators import apply_defaults
-
-from helpers.redshift_validator import RedshiftValidator
+# helpers libs
+from helpers.redshift_checker import RedshiftChecker
 
 
 class DataQualityOperator(BaseOperator):
+    """This class defines the custom data quality operator
+    to check the data inserted into the fact and dimensions
+    tables.
+    """
+
     ui_color = "#89DA59"
 
     @apply_defaults
-    def __init__(self, json_rules, *args, **kwargs):
+    def __init__(self, rules, *args, **kwargs):
+        """Creates the DataQualityOperator object, and initializes
+        the RedshiftChecker.
+
+        Args:
+            rules: The rules JSON file absolute path.
+        """
         super(DataQualityOperator, self).__init__(*args, **kwargs)
-
-        self.redshift = RedshiftValidator(self.log)
-        self.rules = self.__json_load(json_rules)
-
-    @staticmethod
-    def __json_load(json_rules):
-        json_file = open(json_rules)
-        data = json.load(json_file)
-        json_file.close()
-        return data
-
-    def __check_table_columns(self, table, columns, rows):
-        report = {}
-        for column in columns:
-            valid_rows = self.redshift.get_valid_row_count(table, column["name"], column["rules"])
-
-            if rows == valid_rows:
-                message = f"Data quality on column {column['name']} from table {table} check passed."
-                self.log.info(message)
-            else:
-                message = f"Data quality check failed. {table} contain invalid records"
-                ValueError(message)
-
-            report[column["name"]] = message
-
-        return report
-
-    def __check_tables(self):
-        report = {}
-
-        for table in self.rules:
-            table_rows = self.redshift.get_table_row_count(table["name"])
-            report[table["name"]] = self.__check_table_columns(table["name"], table["columns"], table_rows)
-
-        return report
+        self.redshift_checker = RedshiftChecker(rules, self.log)
 
     def execute(self, context):
-        report = json.dumps(self.__check_tables())
+        """Executes the Redshift check process and exports the
+        resulting report to a XCom key.
+
+        Args:
+            context: The task context inherited from BaseOperator.
+        """
+        report = self.redshift_checker.check()
         context['ti'].xcom_push(key='quality_check', value=report)

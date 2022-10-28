@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Operators Package &mdash; Data Pipelines with Airflow &amp; AWS Redshift 0.1.0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Helpers Package" href="helpers.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> Data Pipelines with Airflow & AWS Redshift
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="modules.html">Helpers</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html#operators">Operators</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Operators Package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-data_quality">plugins.operators.data_quality module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#data_quality.DataQualityOperator"><code class="docutils literal notranslate"><span class="pre">DataQualityOperator</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-load_dimension">plugins.operators.load_dimension module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#load_dimension.LoadDimensionOperator"><code class="docutils literal notranslate"><span class="pre">LoadDimensionOperator</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-load_fact">plugins.operators.load_fact module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#load_fact.LoadFactOperator"><code class="docutils literal notranslate"><span class="pre">LoadFactOperator</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-stage_redshift">plugins.operators.stage_redshift module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#stage_redshift.StageToRedshiftOperator"><code class="docutils literal notranslate"><span class="pre">StageToRedshiftOperator</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-contents">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Data Pipelines with Airflow & AWS Redshift</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="modules.html">Helpers</a> &raquo;</li>
+      <li>Operators Package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/operators.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="operators-package">
+<h1>Operators Package<a class="headerlink" href="#operators-package" title="Permalink to this heading"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading"></a></h2>
+</section>
+<section id="module-data_quality">
+<span id="plugins-operators-data-quality-module"></span><h2>plugins.operators.data_quality module<a class="headerlink" href="#module-data_quality" title="Permalink to this heading"></a></h2>
+<p>Defines the DataQualityOperator class to execute the
+RedshiftChecker with the rules specified by the JSON file.
+The check report is exported as a JSON string to a XCom.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="data_quality.DataQualityOperator">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">data_quality.</span></span><span class="sig-name descname"><span class="pre">DataQualityOperator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rules</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#data_quality.DataQualityOperator" title="Permalink to this definition"></a></dt>
+<dd><p>This class defines the custom data quality operator
+to check the data inserted into the fact and dimensions
+tables.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="data_quality.DataQualityOperator.execute">
+<span class="sig-name descname"><span class="pre">execute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#data_quality.DataQualityOperator.execute" title="Permalink to this definition"></a></dt>
+<dd><p>Executes the Redshift check process and exports the
+resulting report to a XCom key.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>context</strong> – The task context inherited from BaseOperator.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-load_dimension">
+<span id="plugins-operators-load-dimension-module"></span><h2>plugins.operators.load_dimension module<a class="headerlink" href="#module-load_dimension" title="Permalink to this heading"></a></h2>
+<p>Defines the LoadDimensionOperator class to execute the
+SQL insert statements for the dimension tables.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="load_dimension.LoadDimensionOperator">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">load_dimension.</span></span><span class="sig-name descname"><span class="pre">LoadDimensionOperator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">redshift_connection_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'redshift'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">table</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">append_only</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sql_create</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sql_insert</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#load_dimension.LoadDimensionOperator" title="Permalink to this definition"></a></dt>
+<dd><p>This class defines the dimension table’s data loader operator
+to execute drop, create and insert statements.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="load_dimension.LoadDimensionOperator.execute">
+<span class="sig-name descname"><span class="pre">execute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#load_dimension.LoadDimensionOperator.execute" title="Permalink to this definition"></a></dt>
+<dd><p>Executes the RedshiftSQLHook for each SQL statement
+according to the options set by the constructor.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>context</strong> – The task context inherited from BaseOperator.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-load_fact">
+<span id="plugins-operators-load-fact-module"></span><h2>plugins.operators.load_fact module<a class="headerlink" href="#module-load_fact" title="Permalink to this heading"></a></h2>
+<p>Defines the LoadFactOperator class to execute the
+SQL insert statements for the fact table.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="load_fact.LoadFactOperator">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">load_fact.</span></span><span class="sig-name descname"><span class="pre">LoadFactOperator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">redshift_connection_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'redshift'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">table</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">append_only</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sql_create</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sql_insert</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#load_fact.LoadFactOperator" title="Permalink to this definition"></a></dt>
+<dd><p>This class defines the fact table’s data loader operator
+to execute drop, create and insert statements.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="load_fact.LoadFactOperator.execute">
+<span class="sig-name descname"><span class="pre">execute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#load_fact.LoadFactOperator.execute" title="Permalink to this definition"></a></dt>
+<dd><p>Executes the RedshiftSQLHook for each SQL statement
+according to the options set by the constructor.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>context</strong> – The task context inherited from BaseOperator.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-stage_redshift">
+<span id="plugins-operators-stage-redshift-module"></span><h2>plugins.operators.stage_redshift module<a class="headerlink" href="#module-stage_redshift" title="Permalink to this heading"></a></h2>
+<p>Defines the StageToRedshiftOperator class to execute the
+SQL copy statements for the stage tables.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="stage_redshift.StageToRedshiftOperator">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">stage_redshift.</span></span><span class="sig-name descname"><span class="pre">StageToRedshiftOperator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">aws_credentials_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'aws_credentials'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">redshift_connection_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'redshift'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">s3_bucket</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">s3_key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">table</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sql_copy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sql_create</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#stage_redshift.StageToRedshiftOperator" title="Permalink to this definition"></a></dt>
+<dd><p>This class defines the stage table’s data loader operator
+to execute drop, create and copy statements.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="stage_redshift.StageToRedshiftOperator.execute">
+<span class="sig-name descname"><span class="pre">execute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#stage_redshift.StageToRedshiftOperator.execute" title="Permalink to this definition"></a></dt>
+<dd><p>Initializes the AWS credentials using the AwsBaseHook.
+Executes the RedshiftSQLHook for each SQL statement
+according to the options set by the constructor.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>context</strong> – The task context inherited from BaseOperator.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-contents">
+<h2>Module contents<a class="headerlink" href="#module-contents" title="Permalink to this heading"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="helpers.html" class="btn btn-neutral float-left" title="Helpers Package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Rodrigo de Alvarenga Mattos.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

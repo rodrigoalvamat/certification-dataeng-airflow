@@ -1,3 +1,8 @@
+"""Defines the SqlQueries class where each
+property is set to a SQL statement to create
+tables, copy data from S3 files, and insert data
+from stage tables."""
+
 class SqlQueries:
     # Create tables
 

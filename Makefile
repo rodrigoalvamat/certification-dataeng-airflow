@@ -1,4 +1,4 @@
-.PHONY : all clean deploy destroy init
+.PHONY : all clean deploy destroy doc init install
 
 all:
 	deploy
@@ -14,6 +14,9 @@ deploy: clean
 
 destroy:
 	terraform -chdir='./terraform' destroy -var-file='secret.tfvars'
+
+doc:
+	sphinx-build -M html ./docs/source ./docs/build
 
 init:
 	terraform -chdir='./terraform' init
