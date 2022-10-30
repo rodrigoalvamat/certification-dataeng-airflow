@@ -13,6 +13,7 @@ __pycache__
 
 # airflow
 /logs
+.env
 
 # config
-redshift.cfg
+config/redshift.cfg

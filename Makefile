@@ -1,7 +1,9 @@
-.PHONY : all clean deploy destroy doc init install
+.PHONY : all apply clean destroy doc docker init
+
+USERID := $(shell id -u)
 
 all:
-	deploy
+	apply
 
 clean:
 	find ./dags -name '*.py[co]' -exec rm {} \;
@@ -9,17 +11,20 @@ clean:
 	find ./plugins -name '*.py[co]' -exec rm {} \;
 	find ./plugins -name '__pycache__' -exec rm -rf ||: {}\;
 
-deploy: clean
-	terraform -chdir='./terraform' apply -var-file='secret.tfvars'
+apply: clean
+	terraform -chdir='./terraform' apply -var-file='secret.tfvars' -auto-aprove
 
 destroy:
-	terraform -chdir='./terraform' destroy -var-file='secret.tfvars'
+	terraform -chdir='./terraform' destroy -var-file='secret.tfvars' -auto-aprove
 
 doc:
 	sphinx-build -M html ./docs/source ./docs/build
 
+docker:
+	mkdir -p ./logs
+	echo -e "AIRFLOW_UID=$(USERID)" > .env
+	docker-compose up airflow-init
+	docker-compose up -d
+
 init:
 	terraform -chdir='./terraform' init
-
-install:
-	pipenv install

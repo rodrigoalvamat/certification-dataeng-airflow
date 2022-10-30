@@ -5,7 +5,7 @@ DataQualityChecker."""
 # airflow libs
 from airflow.providers.amazon.aws.operators.redshift_sql import RedshiftSQLHook
 # helpers libs
-from data_quality_checker import DataQualityChecker
+from .data_quality_checker import DataQualityChecker
 
 
 class RedshiftChecker(DataQualityChecker):

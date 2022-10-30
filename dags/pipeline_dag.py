@@ -21,7 +21,7 @@ QUALITY_CHECK_JSON = os.path.abspath("./dags/quality_check.json")
 DEFAULT_ARGS = {
     "owner": "udacity",
     "depends_on_past": False,
-    "start_date": datetime(2022, 10, 26),
+    "start_date": datetime(2022, 10, 30),
     "schedule_interval": "@hourly",
     "retries": 3,
     "retry_delay": timedelta(minutes=5),
@@ -94,7 +94,7 @@ with DAG("pipeline_dag",
 
     run_quality_checks = DataQualityOperator(
         task_id="run_data_quality_checks",
-        json_rules=QUALITY_CHECK_JSON
+        rules=QUALITY_CHECK_JSON
     )
 
     stop_operator = DummyOperator(task_id="stop_execution")
