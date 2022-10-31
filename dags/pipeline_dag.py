@@ -4,24 +4,42 @@ custom operator and specify task dependencies"""
 # python libs
 import os
 from datetime import datetime, timedelta
+# config libs
+import configparser
 # airflow libs
 from airflow import DAG
 from airflow.operators.dummy import DummyOperator
 from airflow.utils.task_group import TaskGroup
 # plugins operators libs
-from operators.data_quality import DataQualityOperator
-from operators.load_dimension import LoadDimensionOperator
-from operators.load_fact import LoadFactOperator
-from operators.stage_redshift import StageToRedshiftOperator
+from pipeline.operators.data_quality import DataQualityOperator
+from pipeline.operators.load_dimension import LoadDimensionOperator
+from pipeline.operators.load_fact import LoadFactOperator
+from pipeline.operators.stage_redshift import StageToRedshiftOperator
 # plugins helpers libs
-from helpers.sql_queries import SqlQueries
+from pipeline.helpers.sql_queries import SqlQueries
 
+# Set config parser
+parser = configparser.ConfigParser()
+parser.read_file(open(os.path.abspath("./dags/pipeline.cfg"), encoding='utf-8'))
+
+# Get S3 config
+S3_BUCKET = parser.get("S3", "S3_BUCKET")
+S3_LOG_DATA = parser.get("S3", "S3_LOG_DATA")
+S3_SONG_DATA = parser.get("S3", "S3_SONG_DATA")
+
+# Get DAG config
+START_DATE_YEAR = int(parser.get("DAG", "START_DATE_YEAR"))
+START_DATE_MONTH = int(parser.get("DAG", "START_DATE_MONTH"))
+START_DATE_DAY = int(parser.get("DAG", "START_DATE_DAY"))
+
+# Get quality check rules
 QUALITY_CHECK_JSON = os.path.abspath("./dags/quality_check.json")
 
+# Set DAG default arguments
 DEFAULT_ARGS = {
     "owner": "udacity",
     "depends_on_past": False,
-    "start_date": datetime(2022, 10, 30),
+    "start_date": datetime(START_DATE_YEAR, START_DATE_MONTH, START_DATE_DAY),
     "schedule_interval": "@hourly",
     "retries": 3,
     "retry_delay": timedelta(minutes=5),
@@ -30,6 +48,7 @@ DEFAULT_ARGS = {
     "catchup": False
 }
 
+# Defines the pipeline DAG, task groups and dependencies
 with DAG("pipeline_dag",
          default_args=DEFAULT_ARGS,
          max_active_runs=1,
@@ -40,8 +59,8 @@ with DAG("pipeline_dag",
     with TaskGroup(group_id="stage_to_redshift") as stage_to_redshift:
         StageToRedshiftOperator(
             task_id="stage_events",
-            s3_bucket="udacity-dend",
-            s3_key="log_data",
+            s3_bucket=S3_BUCKET,
+            s3_key=S3_LOG_DATA,
             table="staging_events",
             sql_copy=SqlQueries.table_staging_events_copy,
             sql_create=SqlQueries.table_staging_events_create,
@@ -49,8 +68,8 @@ with DAG("pipeline_dag",
 
         StageToRedshiftOperator(
             task_id="stage_songs",
-            s3_bucket="udacity-dend",
-            s3_key="song_data",
+            s3_bucket=S3_BUCKET,
+            s3_key=S3_SONG_DATA,
             table="staging_songs",
             sql_copy=SqlQueries.table_staging_songs_copy,
             sql_create=SqlQueries.table_staging_songs_create,

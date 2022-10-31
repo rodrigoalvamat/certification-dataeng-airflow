@@ -7,7 +7,7 @@ The check report is exported as a JSON string to a XCom.
 from airflow.models import BaseOperator
 from airflow.utils.decorators import apply_defaults
 # helpers libs
-from .redshift_checker import RedshiftChecker
+from pipeline.operators.redshift_checker import RedshiftChecker
 
 
 class DataQualityOperator(BaseOperator):
